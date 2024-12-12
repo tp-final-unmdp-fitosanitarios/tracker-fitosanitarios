@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: tracker-fitosanitarios-app
+    ports:
+      - "8080:8080" # Map Spring Boot app port to host
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/trackerdb
+      SPRING_DATASOURCE_USERNAME: trackeruser
+      SPRING_DATASOURCE_PASSWORD: trackerpass
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: tracker-fitosanitarios-db
+    environment:
+      POSTGRES_DB: trackerdb
+      POSTGRES_USER: trackeruser
+      POSTGRES_PASSWORD: trackerpass
+    ports:
+      - "5432:5432" # Map PostgreSQL port to host
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
