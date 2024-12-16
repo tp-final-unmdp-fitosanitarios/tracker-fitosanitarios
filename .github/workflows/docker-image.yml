@@ -7,12 +7,23 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag facuerro/pampagrow:$(date +%s)
+      - uses: actions/checkout@v4
+
+      # Step to set up JDK (required to run Gradle)
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21' # Update to match your project's Java version
+
+      # Step to run Gradle build
+      - name: Run Gradle build
+        run: ./gradlew clean build
+
+      # Step to build the Docker image
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag facuerro/pampagrow:$(date +%s)
