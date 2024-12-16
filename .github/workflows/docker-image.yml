@@ -28,6 +28,13 @@ jobs:
       - name: Run Gradle build
         run: ./gradlew clean build
 
-      # Step to build the Docker image
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag facuerro/pampagrow:$(date +%s)
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push the Docker image
+        run: |
+          docker build . --file Dockerfile --tag facuerro/pampagrow:latest
+          docker push facuerro/pampagrow:latest
