@@ -20,6 +20,10 @@ jobs:
           distribution: 'temurin'
           java-version: '21' # Update to match your project's Java version
 
+      # Step to grant execution permissions to the Gradle wrapper
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
       # Step to run Gradle build
       - name: Run Gradle build
         run: ./gradlew clean build
