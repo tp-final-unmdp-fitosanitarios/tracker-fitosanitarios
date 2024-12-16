@@ -43,7 +43,7 @@ Resources:
       ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
       ContainerDefinitions:
         - Name: SpringBootContainer
-          Image: docker.io/facuerro/pampagrow:latest
+          Image: facuerro/pampagrow:latest
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
