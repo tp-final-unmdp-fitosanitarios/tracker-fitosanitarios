@@ -70,6 +70,9 @@ Resources:
           FromPort: 8080
           ToPort: 8080
           CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: 0.0.0.0/0
 
   Service:
     Type: AWS::ECS::Service
@@ -144,3 +147,27 @@ Resources:
     Properties:
       SubnetId: !Ref PublicSubnet2
       RouteTableId: !Ref RouteTable
+
+  ECRApiEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.ecr.api"
+      VpcId: !Ref VPC
+      VpcEndpointType: Interface
+      SubnetIds:
+        - !Ref PublicSubnet1
+        - !Ref PublicSubnet2
+      SecurityGroupIds:
+        - !Ref SecurityGroup
+
+  ECRDkrEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.ecr.dkr"
+      VpcId: !Ref VPC
+      VpcEndpointType: Interface
+      SubnetIds:
+        - !Ref PublicSubnet1
+        - !Ref PublicSubnet2
+      SecurityGroupIds:
+        - !Ref SecurityGroup
