@@ -43,7 +43,7 @@ Resources:
       ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
       ContainerDefinitions:
         - Name: SpringBootContainer
-          Image: facuerro/pampagrow:latest
+          Image: 918873892304.dkr.ecr.sa-east-1.amazonaws.com/pampagrow
           PortMappings:
             - ContainerPort: 8080
               Protocol: tcp
