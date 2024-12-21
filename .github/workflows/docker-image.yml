@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'src/**'  # Trigger on changes within the "src" directory
+      - '.github/**'
 
 jobs:
   build:
